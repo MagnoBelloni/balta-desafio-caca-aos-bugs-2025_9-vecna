@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="LinqKit.Microsoft.EntityFrameworkCore" Version="9.0.8" />
+		<PackageReference Include="MediatR" Version="13.1.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\BugStore.Domain\BugStore.Domain.csproj" />
+	</ItemGroup>
+
+</Project>

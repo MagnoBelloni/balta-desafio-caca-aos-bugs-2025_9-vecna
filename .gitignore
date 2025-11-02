@@ -485,3 +485,7 @@ $RECYCLE.BIN/
 /src/BugStore.Api/app.db
 /src/BugStore.Api/app.db-shm
 /src/BugStore.Api/app.db-wal
+/src/ConsoleApp1/app.db
+*.db
+*.db-shm
+*.db-wal

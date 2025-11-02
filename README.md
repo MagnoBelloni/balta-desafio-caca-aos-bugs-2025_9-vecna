@@ -26,13 +26,21 @@ Banco de Dados.
 [LINK DO APP](https://balta-desafio-halloween-2025-h6gpdsb8ghgzeqae.brazilsouth-01.azurewebsites.net)
 
 ## Resposta de leitura em menos de 200ms
+
+- Customers
 ``` curl
 curl --location 'https://balta-desafio-halloween-2025-h6gpdsb8ghgzeqae.brazilsouth-01.azurewebsites.net/v1/customers?name=Zula&phone=3'
 ```
 ![Customers request abaixo de 200ms](docs/customers.png)
 
-
+- Products
 ``` curl
 curl --location 'https://balta-desafio-halloween-2025-h6gpdsb8ghgzeqae.brazilsouth-01.azurewebsites.net/v1/products'
 ```
 ![Products request abaixo de 200ms](docs/products.png)
+
+- Revenue com cache
+``` curl
+curl --location 'https://balta-desafio-halloween-2025-h6gpdsb8ghgzeqae.brazilsouth-01.azurewebsites.net/v1/reports/revenue?Year=2025&Month=10'
+```
+![Revenue request abaixo de 200ms](docs/revenue.png)

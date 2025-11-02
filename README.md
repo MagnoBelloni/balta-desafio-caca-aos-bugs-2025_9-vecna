@@ -29,4 +29,4 @@ Banco de Dados.
 ``` curl
 curl --location 'https://balta-desafio-halloween-2025-h6gpdsb8ghgzeqae.brazilsouth-01.azurewebsites.net/v1/customers?name=Zula&phone=3'
 ```
-[Customers request abaixo de 200ms](docs/customers.png)
+![Customers request abaixo de 200ms](docs/customers.png)

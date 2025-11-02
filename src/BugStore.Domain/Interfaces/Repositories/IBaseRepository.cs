@@ -18,6 +18,8 @@ namespace BugStore.Domain.Interfaces.Repositories
         Task<T?> GetByIdAsNoTrackingAsync(Guid id, CancellationToken cancellationToken);
         Task AddAsync(T entity, CancellationToken cancellationToken);
         Task UpdateAsync(T entity, CancellationToken cancellationToken);
+        void Update(T entity, CancellationToken cancellationToken);
         Task DeleteAsync(Guid id, CancellationToken cancellationToken);
+        Task SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

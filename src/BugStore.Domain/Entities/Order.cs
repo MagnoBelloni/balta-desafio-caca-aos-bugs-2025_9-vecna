@@ -17,6 +17,9 @@ public class Order : BaseEntity
     public Guid CustomerId { get; private set; }
     public Customer? Customer { get; private set; }
 
+    public DateTime CreatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
+
     public List<OrderLine> Lines { get; private set; } = [];
     public decimal TotalAmount { get; private set; }
 }

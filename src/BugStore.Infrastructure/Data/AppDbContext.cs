@@ -9,4 +9,21 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Product> Products { get; set; } = null!;
     public DbSet<Order> Orders { get; set; } = null!;
     public DbSet<OrderLine> OrderLines { get; set; } = null!;
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Customer>()
+            .HasIndex(c => c.Name);
+
+        modelBuilder.Entity<Product>()
+            .HasIndex(p => p.Title);
+
+        modelBuilder.Entity<Order>()
+            .HasIndex(o => o.CreatedAt);
+
+        modelBuilder.Entity<Order>()
+            .HasIndex(o => o.TotalAmount);
+    }
 }

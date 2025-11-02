@@ -1,5 +1,6 @@
 ﻿using BugStore.Application.Products.Requests;
 using BugStore.Application.Products.Responses;
+using BugStore.Domain.Exceptions;
 using BugStore.Domain.Helpers;
 using BugStore.Domain.Interfaces.Repositories;
 using MediatR;
@@ -11,7 +12,7 @@ public class UpdateProductRequestHandler(IProductRepository productRepository) :
     public async Task<UpdateProductResponse> Handle(UpdateProductRequest request, CancellationToken cancellationToken)
     {
         var product = await productRepository.GetByIdAsync(request.Id, cancellationToken)
-            ?? throw new Exception("Produto não encontrado");
+            ?? throw new CustomAppException("Produto não encontrado");
 
         product.Title = request.Title;
         product.Description = request.Description;

@@ -6,14 +6,13 @@ using MediatR;
 
 namespace BugStore.Application.Reports.Handlers
 {
-    public class RevenueByPeriodRequestHandler(IOrderCacheRepository orderRepository) : IRequestHandler<RevenueByPeriodRequest, RevenueByPeriodResponse>
+    public class RevenueByPeriodRequestHandler(IOrderCacheRepository orderCacheRepository) : IRequestHandler<RevenueByPeriodRequest, RevenueByPeriodResponse>
     {
         public async Task<RevenueByPeriodResponse> Handle(RevenueByPeriodRequest request, CancellationToken cancellationToken)
         {
-            if (!request.IsValid())
-                throw new Exception("Requisição inválida");
+            request.CheckIsValid();
 
-            var revenue = await orderRepository.GetRevenueByPeriodAsync(request.Year, request.Month, cancellationToken);
+            var revenue = await orderCacheRepository.GetRevenueByPeriodAsync(request.Year, request.Month, cancellationToken);
 
             return new RevenueByPeriodResponse
             {

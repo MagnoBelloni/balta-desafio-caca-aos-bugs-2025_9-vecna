@@ -1,4 +1,5 @@
-﻿using BugStore.Domain.Helpers;
+﻿using BugStore.Domain.Exceptions;
+using BugStore.Domain.Helpers;
 using FluentAssertions;
 
 namespace BugStore.Domain.Tests.Helpers
@@ -30,7 +31,7 @@ namespace BugStore.Domain.Tests.Helpers
         [InlineData(13)]
         public void GetMonthNameByInteger_Should_ThrowException_WhenMonthIsInvalid(int month)
         {
-            var result = Assert.Throws<Exception>(() => CultureInfoHelper.GetMonthNameByInteger(month));
+            var result = Assert.Throws<CustomAppException>(() => CultureInfoHelper.GetMonthNameByInteger(month));
             result.Message.Should().Be("Mês inválido");
         }
     }

@@ -65,17 +65,23 @@ namespace BugStore.Infrastructure.Data.Repositories
 
         public virtual async Task AddAsync(T entity, CancellationToken cancellationToken)
         {
-            entity.CreatedAt = DateTime.UtcNow;
-            entity.UpdatedAt = DateTime.UtcNow;
-
             await _dbSet.AddAsync(entity, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
         }
 
         public virtual async Task UpdateAsync(T entity, CancellationToken cancellationToken)
         {
-            entity.UpdatedAt = DateTime.UtcNow;
             _dbSet.Update(entity);
+            await _context.SaveChangesAsync(cancellationToken);
+        }
+
+        public virtual void Update(T entity, CancellationToken cancellationToken)
+        {
+            _dbSet.Update(entity);
+        }
+
+        public async Task SaveChangesAsync(CancellationToken cancellationToken)
+        {
             await _context.SaveChangesAsync(cancellationToken);
         }
 

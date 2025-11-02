@@ -1,5 +1,6 @@
 using BugStore.Api;
 using BugStore.Api.Controllers;
+using BugStore.Api.Middlewares;
 using BugStore.Application;
 using BugStore.Infrastructure;
 
@@ -10,6 +11,8 @@ builder.Services.AddApplicationDependencies();
 builder.Services.AddInfrastructureDependencies(builder.Configuration);
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.MapGet("/", () => Results.Redirect("/swagger"));
 

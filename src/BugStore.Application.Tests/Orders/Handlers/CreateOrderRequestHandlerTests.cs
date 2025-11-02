@@ -2,6 +2,7 @@
 using BugStore.Application.Orders.Handlers;
 using BugStore.Application.Orders.Requests;
 using BugStore.Domain.Entities;
+using BugStore.Domain.Exceptions;
 using BugStore.Domain.Interfaces.CacheRepositories;
 using BugStore.Domain.Interfaces.Repositories;
 using FluentAssertions;
@@ -36,7 +37,7 @@ public class CreateOrderRequestHandlerTests
     {
         var request = fixture.Create<CreateOrderRequest>();
 
-        var result = await Assert.ThrowsAsync<Exception>(() => handler.Handle(request, CancellationToken.None));
+        var result = await Assert.ThrowsAsync<CustomAppException>(() => handler.Handle(request, CancellationToken.None));
 
         result.Message.Should().Be("Customer não encontrado");
     }
@@ -69,7 +70,7 @@ public class CreateOrderRequestHandlerTests
             .With(x => x.Lines, [lineFound, lineNotFound])
             .Create();
 
-        var result = await Assert.ThrowsAsync<Exception>(() => handler.Handle(request, CancellationToken.None));
+        var result = await Assert.ThrowsAsync<CustomAppException>(() => handler.Handle(request, CancellationToken.None));
 
         result.Message.Should().Be($"Produto {productNotFoundId} não encontrado");
     }

@@ -1,4 +1,5 @@
 ﻿using BugStore.Application.Reports.Responses;
+using BugStore.Domain.Exceptions;
 using MediatR;
 
 namespace BugStore.Application.Reports.Requests
@@ -9,15 +10,13 @@ namespace BugStore.Application.Reports.Requests
 
         public int Month { get; set; }
 
-        public bool IsValid()
+        public void CheckIsValid()
         {
-            if (Year < 0)
-                return false;
+            if(Year > DateTime.Now.Year)
+                throw new CustomAppException("O ano não pode ser maior que o atual");
 
             if (Month is < 1 or > 12)
-                return false;
-
-            return true;
+                throw new CustomAppException("O mês precisa ser entre 1 e 12");
         }
     }
 }

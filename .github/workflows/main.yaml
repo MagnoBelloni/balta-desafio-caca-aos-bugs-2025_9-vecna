@@ -28,21 +28,13 @@ jobs:
 
       - name: Publish artifact
         run: dotnet publish --no-build ./src/BugStore.Api/BugStore.Api.csproj --configuration Release --output publish
-      
-      - name: Install Entity Framework CLI
-        run: dotnet tool install --global dotnet-ef
-
-      - name: Add .NET tools to PATH
-        run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
-
-      - name: Entity Framework Update-Database 
-        run: dotnet ef database update --no-build --configuration Release --project ./src/BugStore.Api/BugStore.Api.csproj
-
-      - name: Copy SQLite DB to publish folder
-        run: find ./src/BugStore.Api -name "app.db" -exec cp {} ./publish/app.db \; || echo "⚠️ app.db not found!"
-
-      - name: Verify app.db presence before deploy
-        run: ls -la ./publish | grep app.db || (echo "❌ app.db missing!" && exit 1)
 
       - name: Zip published artifact
         run: cd publish && zip -r ../published-app.zip . && cd ..
+        
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: balta-desafio-halloween-2025
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: './published-app.zip'

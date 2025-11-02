@@ -1,5 +1,6 @@
 using BugStore.Application.Customers.Requests;
 using BugStore.Application.Customers.Responses;
+using BugStore.Domain.Exceptions;
 using BugStore.Domain.Interfaces.Repositories;
 using MediatR;
 
@@ -12,7 +13,7 @@ public class CreateCustomerRequestHandler(ICustomerRepository customerRepository
         var customerByEmail = await customerRepository.GetOneAsNoTrackingAsync(x => x.Email == request.Email, cancellationToken);
         if (customerByEmail is not null)
         {
-            throw new Exception("Já existe um customer com esse email");
+            throw new CustomAppException("Já existe um customer com esse email");
         }
 
         var customer = request.ToCustomer();

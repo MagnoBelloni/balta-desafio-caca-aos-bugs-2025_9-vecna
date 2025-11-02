@@ -2,6 +2,7 @@
 using BugStore.Application.Customers.Handlers;
 using BugStore.Application.Customers.Requests;
 using BugStore.Domain.Entities;
+using BugStore.Domain.Exceptions;
 using BugStore.Domain.Interfaces.Repositories;
 using FluentAssertions;
 using Moq;
@@ -32,7 +33,7 @@ public class UpdateCustomerRequestHandlerTests
 
         var request = fixture.Create<UpdateCustomerRequest>();
 
-        var result = await Assert.ThrowsAsync<Exception>(() => handler.Handle(request, CancellationToken.None));
+        var result = await Assert.ThrowsAsync<CustomAppException>(() => handler.Handle(request, CancellationToken.None));
 
         result.Message.Should().Be("Customer não encontrado");
     }

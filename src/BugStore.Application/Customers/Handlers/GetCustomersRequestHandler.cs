@@ -11,7 +11,7 @@ namespace BugStore.Application.Customers.Handlers;
 
 public class GetCustomersRequestHandler(ICustomerRepository customerRepository) : IRequestHandler<GetCustomersRequest, PagedResponseDto<GetCustomersResponse>>
 {
-    private static IOrderedQueryable<Customer> OrderBy(IQueryable<Customer> q) => q.OrderByDescending(c => c.CreatedAt);
+    private static IOrderedQueryable<Customer> OrderBy(IQueryable<Customer> q) => q.OrderByDescending(c => c.Name);
 
     public async Task<PagedResponseDto<GetCustomersResponse>> Handle(GetCustomersRequest request, CancellationToken cancellationToken)
     {
@@ -37,13 +37,13 @@ public class GetCustomersRequestHandler(ICustomerRepository customerRepository) 
         var filter = PredicateBuilder.New<Customer>(true);
 
         if (!string.IsNullOrWhiteSpace(request.Name))
-            filter = filter.And(x => x.Name.Contains(request.Name));
+            filter = filter.And(x => x.Name.StartsWith(request.Name));
 
         if (!string.IsNullOrWhiteSpace(request.Phone))
-            filter = filter.And(x => x.Phone.Contains(request.Phone));
+            filter = filter.And(x => x.Phone.StartsWith(request.Phone));
 
         if (!string.IsNullOrWhiteSpace(request.Email))
-            filter = filter.And(x => x.Email.Contains(request.Email));
+            filter = filter.And(x => x.Email.StartsWith(request.Email));
 
         return filter;
     }

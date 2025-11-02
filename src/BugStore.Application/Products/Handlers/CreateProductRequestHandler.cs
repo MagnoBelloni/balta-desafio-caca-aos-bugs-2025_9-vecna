@@ -1,5 +1,6 @@
 ﻿using BugStore.Application.Products.Requests;
 using BugStore.Application.Products.Responses;
+using BugStore.Domain.Exceptions;
 using BugStore.Domain.Interfaces.Repositories;
 using MediatR;
 
@@ -12,7 +13,7 @@ namespace BugStore.Application.Products.Handlers
             var productByTitle = await productRepository.GetOneAsNoTrackingAsync(x => x.Title == request.Title, cancellationToken);
             if (productByTitle is not null)
             {
-                throw new Exception("Já existe um product com esse titulo");
+                throw new CustomAppException("Já existe um product com esse titulo");
             }
 
             var product = request.ToProduct();

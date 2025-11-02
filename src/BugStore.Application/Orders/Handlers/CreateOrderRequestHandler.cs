@@ -1,6 +1,7 @@
 ﻿using BugStore.Application.Orders.Requests;
 using BugStore.Application.Orders.Responses;
 using BugStore.Domain.Entities;
+using BugStore.Domain.Exceptions;
 using BugStore.Domain.Interfaces.CacheRepositories;
 using BugStore.Domain.Interfaces.Repositories;
 using MediatR;
@@ -12,7 +13,7 @@ public class CreateOrderRequestHandler(ICustomerRepository customerRepository, I
     public async Task<CreateOrderResponse> Handle(CreateOrderRequest request, CancellationToken cancellationToken)
     {
         var customer = await customerRepository.GetByIdAsNoTrackingAsync(request.CustomerId, cancellationToken)
-            ?? throw new Exception("Customer não encontrado");
+            ?? throw new CustomAppException("Customer não encontrado");
 
         var requestProductsIds = request.Lines.Select(x => x.ProductId);
         var products = await productRepository.GetAllAsync(x => requestProductsIds.Contains(x.Id), cancellationToken);
@@ -31,7 +32,7 @@ public class CreateOrderRequestHandler(ICustomerRepository customerRepository, I
         foreach (var productId in requestProductsIds)
         {
             if (!products.Any(x => x.Id == productId))
-                throw new Exception($"Produto {productId} não encontrado");
+                throw new CustomAppException($"Produto {productId} não encontrado");
         }
     }
 

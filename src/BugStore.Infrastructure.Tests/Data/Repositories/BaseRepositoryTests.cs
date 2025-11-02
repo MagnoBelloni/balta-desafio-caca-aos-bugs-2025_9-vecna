@@ -67,7 +67,7 @@ namespace BugStore.Infrastructure.Tests.Data.Repositories
                 await baseRepository.AddAsync(entity, CancellationToken.None);
             }
 
-            IOrderedQueryable<Customer> OrderBy(IQueryable<Customer> q) => q.OrderByDescending(c => c.CreatedAt);
+            IOrderedQueryable<Customer> OrderBy(IQueryable<Customer> q) => q.OrderByDescending(c => c.Name);
 
             var result = await baseRepository.GetPagedAsync(_ => true, 1, expectedNumberOfEntities, OrderBy, CancellationToken.None);
 

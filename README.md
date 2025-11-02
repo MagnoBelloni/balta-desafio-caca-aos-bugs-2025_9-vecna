@@ -17,10 +17,16 @@ Neste processo eu aprendi:
 - [X] Realizar um fork do repositório do desafio
 - [X] [Fazer o download do banco de testes](https://baltaio.blob.core.windows.net/temp/desafio-caca-aos-bugs-2025/database.zip)
 - [X] Otimizar os métodos (Principalmente os de leitura)
-- [ ] Obter uma resposta de leitura em menos de 200ms
+- [X] Obter uma resposta de leitura em menos de 200ms
 
 ## Sobre o Caça aos Bugs
 O desafio **Caça aos Bugs 2025** consiste em encontrar bugs e sugerir melhorias para aplicações em cenários reais. Durante os 9 desafios desta jornada, os participantes são submetidos ao aprendizado e prática de Depuração de Aplicações, Testes de Unidade, Testes E2E, Melhorias de UI, Melhorias de Performance, Deployment e Infraestrutura,
 Banco de Dados.
 
 [LINK DO APP](https://balta-desafio-halloween-2025-h6gpdsb8ghgzeqae.brazilsouth-01.azurewebsites.net)
+
+## Resposta de leitura em menos de 200ms
+``` curl
+curl --location 'https://balta-desafio-halloween-2025-h6gpdsb8ghgzeqae.brazilsouth-01.azurewebsites.net/v1/customers?name=Zula&phone=3'
+```
+[Customers request abaixo de 200ms](docs/customers.png)

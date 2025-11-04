@@ -11,7 +11,7 @@ namespace BugStore.Application.Products.Handlers;
 
 public class GetProductRequestHandler(IProductRepository productRepository) : IRequestHandler<GetProductRequest, PagedResponseDto<GetProductResponse>>
 {
-    private static IOrderedQueryable<Product> OrderBy(IQueryable<Product> q) => q.OrderByDescending(c => c.Title);
+    private static IOrderedQueryable<Product> OrderBy(IQueryable<Product> q) => q.OrderBy(c => c.Title);
 
     public async Task<PagedResponseDto<GetProductResponse>> Handle(GetProductRequest request, CancellationToken cancellationToken)
     {
@@ -32,6 +32,9 @@ public class GetProductRequestHandler(IProductRepository productRepository) : IR
     {
         var filter = PredicateBuilder.New<Product>(true);
 
+        if (request.Price is not null)
+            filter = filter.And(x => x.Price == request.Price);
+
         if (!string.IsNullOrWhiteSpace(request.Title))
             filter = filter.And(x => x.Title.StartsWith(request.Title));
 
@@ -40,9 +43,6 @@ public class GetProductRequestHandler(IProductRepository productRepository) : IR
 
         if (!string.IsNullOrWhiteSpace(request.Slug))
             filter = filter.And(x => x.Slug.StartsWith(request.Slug));
-
-        if (request.Price is not null)
-            filter = filter.And(x => x.Price == request.Price);
 
         return filter;
     }

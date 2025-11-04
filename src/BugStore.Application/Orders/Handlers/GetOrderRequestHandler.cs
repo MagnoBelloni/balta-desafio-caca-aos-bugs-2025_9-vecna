@@ -11,7 +11,7 @@ namespace BugStore.Application.Orders.Handlers;
 
 public class GetOrderRequestHandler(IOrderRepository orderRepository) : IRequestHandler<GetOrderRequest, PagedResponseDto<GetOrderResponse>>
 {
-    private static IOrderedQueryable<Order> OrderBy(IQueryable<Order> q) => q.OrderByDescending(c => c.CreatedAt);
+    private static IOrderedQueryable<Order> OrderBy(IQueryable<Order> q) => q.OrderBy(c => c.CreatedAt);
 
     public async Task<PagedResponseDto<GetOrderResponse>> Handle(GetOrderRequest request, CancellationToken cancellationToken)
     {

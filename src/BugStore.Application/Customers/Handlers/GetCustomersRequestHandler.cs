@@ -11,7 +11,7 @@ namespace BugStore.Application.Customers.Handlers;
 
 public class GetCustomersRequestHandler(ICustomerRepository customerRepository) : IRequestHandler<GetCustomersRequest, PagedResponseDto<GetCustomersResponse>>
 {
-    private static IOrderedQueryable<Customer> OrderBy(IQueryable<Customer> q) => q.OrderByDescending(c => c.Name);
+    private static IOrderedQueryable<Customer> OrderBy(IQueryable<Customer> q) => q.OrderBy(c => c.Name);
 
     public async Task<PagedResponseDto<GetCustomersResponse>> Handle(GetCustomersRequest request, CancellationToken cancellationToken)
     {

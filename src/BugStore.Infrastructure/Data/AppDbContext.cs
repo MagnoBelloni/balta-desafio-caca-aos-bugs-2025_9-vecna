@@ -17,8 +17,23 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         modelBuilder.Entity<Customer>()
             .HasIndex(c => c.Name);
 
+        modelBuilder.Entity<Customer>()
+            .HasIndex(c => c.Email);
+
+        modelBuilder.Entity<Customer>()
+            .HasIndex(c => c.Phone);
+
         modelBuilder.Entity<Product>()
             .HasIndex(p => p.Title);
+        
+        modelBuilder.Entity<Product>()
+            .HasIndex(p => p.Description);
+
+        modelBuilder.Entity<Product>()
+            .HasIndex(p => p.Slug);
+
+        modelBuilder.Entity<Product>()
+            .HasIndex(p => p.Price);
 
         modelBuilder.Entity<Order>()
             .HasIndex(o => o.CreatedAt);

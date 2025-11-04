@@ -46,9 +46,12 @@ namespace BugStore.Infrastructure.Data.Repositories
 
         public async Task<RevenueByPeriodDto?> GetRevenueByPeriodAsync(int year, int month, CancellationToken cancellationToken)
         {
+            var startDate = new DateTime(year, month, 1);
+            var endDate = startDate.AddMonths(1);
+
             var result = await _dbSet
                 .AsNoTracking()
-                .Where(x => x.CreatedAt.Year == year && x.CreatedAt.Month == month)
+                .Where(x => x.CreatedAt >= startDate && x.CreatedAt < endDate)
                 .GroupBy(_ => 1)
                 .Select(c => new RevenueByPeriodDto
                 {
